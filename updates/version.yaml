@@ -1,0 +1,11 @@
+v1.0.0:
+    - First version of the Custom Chat plugin.
+
+v1.0.1:
+    - 2024_09_03_100001_create_chats_table.php
+
+v1.0.2:
+    - 2024_09_03_100002_create_messages_table.php
+
+v1.0.3:
+    - 2024_09_03_100003_create_chat_user_table.php
