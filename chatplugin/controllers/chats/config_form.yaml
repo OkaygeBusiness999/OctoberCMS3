@@ -1,0 +1,23 @@
+modelClass: CustomChat\ChatPlugin\Models\Chat
+
+form:
+    fields:
+        name:
+            label: Chat Name
+            type: text
+            span: left
+            required: true
+
+        user1_id:
+            label: User 1
+            type: relation
+            nameFrom: login
+            span: right
+            required: true
+
+        user2_id:
+            label: User 2
+            type: relation
+            nameFrom: login
+            span: right
+            required: true

@@ -1,0 +1,5 @@
+v1.0.1:
+  - 2024_09_04_000001_create_chats_table.php
+
+v1.0.2:
+  - 2024_09_04_000002_create_messages_table.php

@@ -1,0 +1,10 @@
+allowed_emojis:
+    label: Allowed Emojis
+    type: repeater
+    prompt: Add new emoji
+    form:
+        fields:
+            emoji:
+                label: Emoji
+                type: text
+                required: true

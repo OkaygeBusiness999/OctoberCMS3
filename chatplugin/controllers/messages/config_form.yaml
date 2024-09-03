@@ -1,0 +1,29 @@
+modelClass: CustomChat\ChatPlugin\Models\Message
+
+form:
+    fields:
+        chat_id:
+            label: Chat
+            type: relation
+            nameFrom: name
+            span: left
+            required: true
+
+        user_id:
+            label: User
+            type: relation
+            nameFrom: login
+            span: right
+            required: true
+
+        message:
+            label: Message
+            type: textarea
+            span: left
+            required: true
+
+        file_path:
+            label: Attach File
+            type: fileupload
+            mode: attachment
+            span: right

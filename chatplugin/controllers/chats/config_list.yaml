@@ -1,0 +1,35 @@
+modelClass: CustomChat\ChatPlugin\Models\Chat
+
+list:
+    columns:
+        id:
+            label: ID
+            type: number
+            searchable: true
+
+        name:
+            label: Chat Name
+            type: text
+            searchable: true
+
+        user1_id:
+            label: User 1
+            type: text
+            searchable: true
+
+        user2_id:
+            label: User 2
+            type: text
+            searchable: true
+
+        created_at:
+            label: Created At
+            type: datetime
+
+        toolbar:
+            buttons:
+                create:
+                    label: 'Create Chat'
+                    class: 'btn btn-primary'
+                    icon: 'icon-plus'
+                    href: '/backend/customchat/chatplugin/chats/create'
