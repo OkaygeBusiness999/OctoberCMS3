@@ -36,7 +36,7 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        // Boot methods or event listeners if needed
+        // Register the middleware for API authentication
     }
 
     /**

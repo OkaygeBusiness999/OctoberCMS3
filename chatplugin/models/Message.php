@@ -7,6 +7,15 @@ class Message extends Model
 {
     protected $table = 'customchat_messages';
 
+    protected $fillable = [
+        'chat_id',
+        'user_id',
+        'message',
+        'file_path',
+        'reactions',
+        'parent_message_id'
+    ];
+
     public $belongsTo = [
         'chat' => ['CustomChat\ChatPlugin\Models\Chat'],
         'user' => ['Backend\Models\User'],
@@ -19,7 +28,7 @@ class Message extends Model
 
     // Enable file attachments
     public $attachOne = [
-        'uploaded_file' => [File::class]
+        'uploaded_file' => [\System\Models\File::class],
     ];
 
     protected $casts = [

@@ -1,37 +1,33 @@
 <?php namespace CustomChat\ChatPlugin\Controllers;
 
 use Backend\Classes\Controller;
-use BackendMenu;
+use Illuminate\Http\Request;
 use CustomChat\ChatPlugin\Models\Chat;
 
 class Chats extends Controller
 {
-    public $implement = [
-        'Backend\Behaviors\ListController',
-        'Backend\Behaviors\FormController'
-    ];
 
-    public $listConfig = 'config_list.yaml';
-    public $formConfig = 'config_form.yaml';
-
-    public function __construct()
+    public function createChat(Request $request)
     {
-        parent::__construct();
-        BackendMenu::setContext('CustomChat.ChatPlugin', 'chatplugin', 'chats');
+        $validated = $request->validate([
+            'user1_id' => 'required|exists:backend_users,id',
+            'user2_id' => 'required|exists:backend_users,id',
+            'name' => 'nullable|string|max:255',
+        ]);
+
+        $chat = Chat::create($validated);
+
+        return response()->json($chat, 201);
     }
 
-    public function listExtendFields($widget)
+    public function listChats(Request $request)
     {
-        if (!$widget->getController() instanceof ListController) {
-            return;
-        }
-        
-        $widget->addButton('create', [
-            'label' => 'Create Chat',
-            'class' => 'btn btn-primary',
-            'icon' => 'icon-plus',
-            'href' => URL::to('/backend/customchat/chatplugin/chats/create'),
-            'context' => 'toolbar'
-        ]);
+        $userId = $request->query('user_id'); // Expect user_id to be passed in query params
+
+        $chats = Chat::where('user1_id', $userId)
+            ->orWhere('user2_id', $userId)
+            ->get();
+
+        return response()->json($chats);
     }
 }
