@@ -15,6 +15,5 @@ class Chat extends Model
         'messages' => ['CustomChat\ChatPlugin\Models\Message'],
     ];
 
-    // Fillable attributes
     protected $fillable = ['name', 'user1_id', 'user2_id'];
 }

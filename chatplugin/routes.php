@@ -1,15 +1,12 @@
 <?php namespace CustomChat\ChatPlugin;
 
-use CustomChat\ChatPlugin\Controllers\Chats;
-use CustomChat\ChatPlugin\Controllers\Messages;
 use Illuminate\Support\Facades\Route;
+use CustomChat\ChatPlugin\Http\Controllers\ChatController;
+use CustomChat\ChatPlugin\Http\Controllers\MessageController;
 
-Route::group(['prefix' => 'api'], function () {
-    // Chat routes
-    Route::post('chats', [Chats::class, 'createChat']);
-    Route::get('chats', [Chats::class, 'listChats']);
-  
-    // Message routes
-    Route::post('messages', [Messages::class, 'postMessage']);
-    Route::post('messages/{id}/reactions', [Messages::class, 'addReaction']);
-});
+Route::post('/chats', [ChatController::class, 'createChat']);
+Route::get('/chats', [ChatController::class, 'listChats']);
+Route::post('/messages', [MessageController::class, 'sendMessage']);
+Route::post('/messages/{id}/reaction', [MessageController::class, 'addReaction']);
+Route::get('/chats/{chat_id}/messages', [MessageController::class, 'getMessages']);
+Route::get('/users/search', [ChatController::class, 'searchUsers']);

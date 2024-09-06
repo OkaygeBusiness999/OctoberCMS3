@@ -26,7 +26,6 @@ class Message extends Model
         'replies' => ['CustomChat\ChatPlugin\Models\Message', 'key' => 'parent_message_id'],
     ];
 
-    // Enable file attachments
     public $attachOne = [
         'uploaded_file' => [\System\Models\File::class],
     ];
@@ -35,13 +34,23 @@ class Message extends Model
         'reactions' => 'array',
     ];
     
-    // Reactions, making sure only allowed emojis used
     public function addReaction($emoji)
     {
         $allowedEmojis = Settings::get('allowed_emojis', []);
-        if (in_array($emoji, array_column($allowedEmojis, 'emoji'))) {
-            $this->reactions[] = $emoji;
+        $allowedEmojiList = array_column($allowedEmojis, 'emoji');
+
+        if (in_array($emoji, $allowedEmojiList)) {
+            
+            $reactions = $this->reactions ?: [];
+            
+            $reactions[] = $emoji;
+
+            $this->reactions = $reactions;
             $this->save();
+            
+            return true;
         }
+        
+        return false;
     }
 }
