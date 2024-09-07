@@ -49,28 +49,6 @@ class Plugin extends PluginBase
 
     public function registerNavigation()
     {
-        return [
-            'chatplugin' => [
-                'label' => 'ChatPlugin',
-                'url' => Backend::url('customchat/chatplugin/messages'),
-                'icon' => 'icon-comments',
-                'permissions' => ['customchat.chatplugin.*'],
-                'order' => 500,
-                'sideMenu' => [
-                    'chats' => [
-                        'label' => 'Chats',
-                        'icon' => 'icon-comments',
-                        'url' => Backend::url('customchat/chatplugin/chats'),
-                        'permissions' => ['customchat.chatplugin.manage_chats']
-                    ],
-                    'messages' => [
-                        'label' => 'Messages',
-                        'icon' => 'icon-envelope',
-                        'url' => Backend::url('customchat/chatplugin/messages'),
-                        'permissions' => ['customchat.chatplugin.manage_messages']
-                    ],
-                ]
-            ],
-        ];
+
     }
 }

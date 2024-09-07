@@ -3,3 +3,6 @@ v1.0.1:
 
 v1.0.2:
   - 2024_09_04_000002_create_messages_table.php
+
+v1.0.3:
+  - 2024_09_07_093226_update_messages_table_drop_file_path.php

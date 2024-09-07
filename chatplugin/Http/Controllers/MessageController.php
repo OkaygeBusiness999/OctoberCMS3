@@ -24,11 +24,13 @@ class MessageController extends Controller
             return response()->json(['error' => 'You are not allowed to post in this chat.'], 403);
         }
 
-        if ($request->hasFile('file')) {
-            $data['file_path'] = $request->file('file')->store('uploads', 'public');
-        }
-
         $message = Message::create($data);
+
+        if ($request->hasFile('file')) {
+            $uploadedFile = $request->file('file');
+            $message->uploaded_file = $uploadedFile;
+            $message->save();
+        }
 
         return response()->json($message, 201);
     }

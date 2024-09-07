@@ -11,7 +11,6 @@ class Message extends Model
         'chat_id',
         'user_id',
         'message',
-        'file_path',
         'reactions',
         'parent_message_id'
     ];
@@ -27,7 +26,7 @@ class Message extends Model
     ];
 
     public $attachOne = [
-        'uploaded_file' => [\System\Models\File::class],
+        'uploaded_file' => File::class,
     ];
 
     protected $casts = [
