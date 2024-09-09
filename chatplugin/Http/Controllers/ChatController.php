@@ -11,23 +11,24 @@ class ChatController extends Controller
     public function createChat(Request $request)
     {
         $validated = $request->validate([
-            'user1_id' => 'required|exists:backend_users,id',
-            'user2_id' => 'required|exists:backend_users,id',
+            'user_ids' => 'required|array|min:2',
+            'user_ids.*' => 'exists:backend_users,id',
             'name' => 'nullable|string|max:255',
         ]);
 
-        $chat = Chat::create($validated);
+        $chat = Chat::create(['name' => $validated['name'] ?? null]);
+        $chat->participants()->attach($validated['user_ids']);
 
-        return response()->json($chat, 201);
+        return response()->json($chat->load('participants'), 201);
     }
 
     public function listChats(Request $request)
     {
         $userId = $request->query('user_id');
 
-        $chats = Chat::where('user1_id', $userId)
-            ->orWhere('user2_id', $userId)
-            ->get();
+        $chats = Chat::whereHas('participants', function ($query) use ($userId) {
+            $query->where('id', $userId);
+        })->get();
 
         return response()->json($chats);
     }
@@ -35,7 +36,7 @@ class ChatController extends Controller
     public function searchUsers(Request $request)
     {
         $query = $request->input('query');
-       
+
         $users = User::where('login', 'like', "%$query%")
             ->orWhere('id', $query)
             ->get();

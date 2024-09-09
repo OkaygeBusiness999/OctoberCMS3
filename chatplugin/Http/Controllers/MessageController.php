@@ -20,7 +20,7 @@ class MessageController extends Controller
 
         $chat = Chat::find($data['chat_id']);
 
-        if ($chat->user1_id !== (int) $data['user_id'] && $chat->user2_id !== (int) $data['user_id']) {
+        if (!$chat->participants->contains($data['user_id'])) {
             return response()->json(['error' => 'You are not allowed to post in this chat.'], 403);
         }
 
@@ -38,9 +38,18 @@ class MessageController extends Controller
     public function getMessages(Request $request, $chat_id)
     {
         $chat = Chat::find($chat_id);
-        $userId = $request->user()->id;
 
-        if ($chat->user1_id !== $userId && $chat->user2_id !== $userId) {
+        if (!$chat) {
+            return response()->json(['error' => 'Chat not found'], 404);
+        }
+
+        $userId = $request->query('user_id');
+
+        if (!$userId) {
+            return response()->json(['error' => 'User ID is required'], 400);
+        }
+
+        if (!$chat->participants->contains($userId)) {
             return response()->json(['error' => 'You are not allowed to view these messages.'], 403);
         }
 

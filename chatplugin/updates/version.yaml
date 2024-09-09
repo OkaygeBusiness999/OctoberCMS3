@@ -6,3 +6,7 @@ v1.0.2:
 
 v1.0.3:
   - 2024_09_07_093226_update_messages_table_drop_file_path.php
+
+v1.0.4:
+  - 2024_09_09_000001_create_chat_user_pivot_table.php
+  - 2024_09_09_000002_update_chats_table_remove_user_columns.php
